@@ -9,11 +9,17 @@ The hand-cleaned are in: data/stashed/handcleaned
 
 I searched through each respective pdftotext output using this regex:
 
-  \s{40,}(?!For|Page|ANNUAL|As of|POSITION TITLE|WHITE HOUSE OFFICE$|EXECUTIVE OFFICE OF THE PRESIDENT$)(\w+.*)$
+```
+     \s{40,}(?!For|Page|ANNUAL|As of|POSITION TITLE|WHITE HOUSE OFFICE$|EXECUTIVE OFFICE OF THE PRESIDENT$)(\w+.*)$
+```
 
-  This would also work:
 
-  Per Annum\s*$
+This would also work:
+
+```
+      Per Annum\s*$
+```
+
 
 And I hand-cleaned the job titles that were found to be spread across multiple lines
 by concatenating them to the line belonging to the person with the job title

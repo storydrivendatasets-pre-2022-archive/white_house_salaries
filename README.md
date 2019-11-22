@@ -1,4 +1,4 @@
-# White House Salaries
+# White House Salaries: 2012 to 2019
 
 This repo contains the code and data for compiling White House salaries from 2012 through 2019.
 
@@ -62,8 +62,12 @@ I then tried [tabula](https://github.com/tabulapdf/tabula-java), which is a soli
 
 I ended up using `pdftotext -layout`, a hacky trick [I used back in the Dollars for Docs days](https://www.propublica.org/nerds/turning-pdfs-to-text-doc-dollars-guide). Surprisingly, it worked very well, and seems to have correctly parsed all but ~15 of ~3500 rows. 
 
-In [stashed/handcleaned](stashed/handcleaned) are the hand-cleaned text files for the pdf files for years 2017 through 2019. This handcleaned version of the data is what the rest of the data-processing pipeline uses, e.g. [whsal/stash/pdftotext_to_csv.py](whsal/stash/pdftotext_to_csv.py). Though I do keep the straight-from-pdftotext versions for comparison and double-checking: [data/originals/pdftotext](data/originals/pdftotext)
+In [stashed/handcleaned](stashed/handcleaned) are the hand-cleaned text files for the pdf files for years 2017 through 2019. This handcleaned version of the data is what the rest of the data-processing pipeline uses, e.g. [whsal/stash/pdftotext_to_csv.py](whsal/stash/pdftotext_to_csv.py). 
 
+I kept a log of the manual handcleaned changes, in YAML format: [data/stashed/pdftotext_handclean_log.yaml](data/stashed/pdftotext_handclean_log.yaml)
+
+
+In conclusion: f–-k pdfs
 
 
 ## Other readings
@@ -78,9 +82,11 @@ This article, while authored by someone from OpenTheBooks.com who has a curious 
 
 They also have this chart:
 
-<img src="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fadamandrzejewski%2Ffiles%2F2018%2F06%2FForbes_TrumpVSTrump_payroll.jpg" alt="">
+<a href="https://www.forbes.com/sites/adamandrzejewski/2018/06/29/trumps-lean-white-house-2018-payroll-on-track-to-save-taxpayers-22-million">
+    <img src="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fadamandrzejewski%2Ffiles%2F2018%2F06%2FForbes_TrumpVSTrump_payroll.jpg" alt="forbes chart">
+</a>
 
-And of course, the Forbes-contributor-LOL-quality analysis:
+There's some Forbes-contributor-LOL-quality analysis too:
 
 > The rest of the Trump family is also leading by example by foregoing their salaries. First Daughter and Presidential Advisor Ivanka Trump and Son-in-Law Senior Advisor Jared Kushner both refused a salary.
 
