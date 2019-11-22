@@ -1,0 +1,138 @@
+"""
+About this log:
+
+The salary pdfs for 2017, 2018, and 2019, ultimately required hand-cleaning.
+
+The originals are in: data/stashed/originals/pdftotext
+
+The hand-cleaned are in: data/stashed/handcleaned
+
+I searched through each respective pdftotext output using this regex:
+
+  \s{40,}(?!For|Page|ANNUAL|As of|POSITION TITLE|WHITE HOUSE OFFICE$|EXECUTIVE OFFICE OF THE PRESIDENT$)(\w+.*)$
+
+  This would also work:
+
+  Per Annum\s*$
+
+And I hand-cleaned the job titles that were found to be spread across multiple lines
+by concatenating them to the line belonging to the person with the job title
+(indicated with `cleanjob` in the yaml)
+
+I *cleared* -- i.e. blanked out -- but did not *delete* the lines
+with the orphan job titles, so each employee record should still have the same
+record_line number as in the original pdftotext output.
+
+"""
+
+2017:
+
+    - record_line: 225
+      employee: Eisenberg, John A.
+      cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT AND DEPUTY COUNSEL TO THE PRESIDENT FOR NATIONAL SECURITY AFFAIRS AND LEGAL ADVISOR TO THE NATIONAL SECURITY COUNCIL
+      affected_lines:
+        224: blanked
+        226: blanked
+
+    - record_line: 229
+      employee: Eissenstat, Everett H.
+      cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT AND DEPUTY DIRECTOR OF THE NATIONAL ECONOMIC COUNCIL AND INTERNATIONAL ECONOMIC AFFAIRS
+      affected_lines:
+        228: blanked
+        230: blanked
+
+
+    - record_line: 233
+      employee: Ellis, Michael J.
+      cleanjob: SPECIAL ASSISTANT TO THE PRESIDENT AND SENIOR ASSOCIATE COUNSEL TO THE PRESIDENT AND DEPUTY LEGAL ADVISOR TO THE NATIONAL SECURITY COUNCIL
+      affected_lines:
+          232: blanked
+          234: blanked
+
+    - record_line: 429
+      employee: Kelly, Marcia L.
+      cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT AND DIRECTOR OF WHITE HOUSE MANAGEMENT AND ADMINISTRATION AND DIRECTOR OF THE OFFICE OF ADMINISTRATION
+      affected_lines:
+          428: blanked
+          430: blanked
+
+2018:
+
+    - record_line: 218
+      employee: Eissenstat, Everett H.
+      cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT FOR INTERNATIONAL ECONOMIC AFFAIRS AND DEPUTY DIRECTOR OF THE NATIONAL ECONOMIC COUNCIL
+      affected_lines:
+          217: blanked
+          219: blanked
+
+    - record_line: 420
+      employee: Kelly, Marcia L.
+      cleanjob: ASSISTANT TO THE PRESIDENT AND DIRECTOR OF WHITE HOUSE MANAGEMENT AND ADMINISTRATION AND DIRECTOR OF THE OFFICE OF ADMINISTRATION
+      affected_lines:
+          419: blanked
+          421: blanked
+
+2019:
+
+    - record_line: 81
+      employee: Block, Monica J.
+      cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT AND DIRECTOR OF WHITE HOUSE MANAGEMENT AND ADMINISTRATION AND ACTING DIRECTOR OF THE OFFICE OF ADMINISTRATION
+      affected_lines:
+          80: blanked
+          82: blanked
+
+    - record_line: 115
+      employee: Bullock, Katja
+      cleanjob: SPECIAL ASSISTANT TO THE PRESIDENT AND ASSOCIATE DIRECTOR AND DIRECTOR OF OPERATIONS FOR PRESIDENTIAL PERSONNEL
+      affected_lines:
+          114: blanked
+          116: blanked
+
+
+    - record_line: 211
+      employee: Cypher, Catharine D.
+      cleanjob: SPECIAL ASSISTANT TO THE PRESIDENT AND DIRECTOR OF SPECIAL PROJECTS AND EXTERNAL AFFAIRS FOR THE SENIOR COUNSELOR
+      affected_lines:
+          210: blanked
+          212: blanked
+
+    - record_line: 278
+      employee: Eisenberg, John A.
+      cleanjob: DEPUTY COUNSEL TO THE PRESIDENT FOR NATIONAL SECURITY AFFAIRS AND LEGAL ADVISOR TO THE NATIONAL SECURITY COUNCIL
+      affected_lines:
+          276: blanked
+          279: blanked
+
+
+    - record_line: 333
+      employee: Frazier, Nicole A.
+      cleanjob: SPECIAL ASSISTANT TO THE PRESIDENT AND DIRECTOR OF STRATEGIC PARTNERSHIPS AND AFRICAN AMERICAN OUTREACH
+      affected_lines:
+          332: blanked
+          334: blanked
+
+
+    - record_line: 768
+      employee: Olmem, Andrew J.
+      cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT FOR ECONOMIC POLICY AND DEPUTY DIRECTOR OF THE NATIONAL ECONOMIC COUNCIL
+      affected_lines:
+          767: blanked
+          769: blanked
+
+
+    - record_line: 953
+      employee: Shaw, Kelly A.
+      cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT FOR INTERNATIONAL ECONOMIC AFFAIRS AND DEPUTY DIRECTOR OF THE NATIONAL ECONOMIC COUNCIL
+      affected_lines:
+          952: blanked
+          954: blanked
+
+"""
+    - record_line: 999
+      employee: ABC
+      cleanjob: DEF
+      affected_lines:
+          999: blanked
+          999: blanked
+
+"""

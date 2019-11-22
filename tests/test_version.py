@@ -1,6 +1,6 @@
 import pytest
-from pysrc.utils import foo
-from pysrc import __version__
+from whsal.utils import foo
+from whsal import __version__
 
 def test_foo():
     assert foo() == 'foo'

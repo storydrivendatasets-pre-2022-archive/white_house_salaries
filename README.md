@@ -2,7 +2,6 @@
 
 
 
-## Sources
+The list of original data URLs and their corresponding years can be found in [data/stashed/filelist.csv](data/stashed/filelist.csv).
 
-- [2019-07-01](https://www.whitehouse.gov/wp-content/uploads/2019/06/July-1-2019-Report-FINAL.pdf)
-- 
+For good measure, the original files are kept in [data/stashed/originals](data/stashed/originals)
