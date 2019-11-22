@@ -32,7 +32,8 @@ HEADERS = ('year', 'president' ,'last_name', 'first_name',
 SHARED_HEADERS = ('year', 'full_name', 'status', 'salary', 'pay_basis',
                   'position_title', 'white_house_review')
 
-NAME_RX = r'(?P<last_name>.+?), (?P<suffix>(.+?,)?) *(?P<first_name>.+?) *(?P<middle_name>[A-Z]\.)?$'
+NAME_RX = r'(?P<last_name>.+?), (?:(?P<suffix>[^,]+),)? *(?P<first_name>.+?) *(?P<middle_name>[A-Z]\.)?$'
+
 
 def parse_name(name):
     """
@@ -44,13 +45,12 @@ def parse_name(name):
         Trump, Ivanka M.
         Hsu, Irene
         Johnston, Jr., Robert O.
-
     """
     mx = re.match(NAME_RX, name)
     if mx:
         return mx.groupdict()
     else:
-        import code; code.interact(local=locals())
+        # import code; code.interact(local=locals())
         return {}
 
 def process_record(row):
@@ -76,7 +76,7 @@ def main():
     DEST_PATH.parent.mkdir(exist_ok=True, parents=True)
 
     with open(DEST_PATH, 'w') as f:
-        outs = csv.DictWriter(f, fieldnames=HEADERS, restval='')
+        outs = csv.DictWriter(f, fieldnames=HEADERS, restval=None)
         outs.writeheader()
         outs.writerows(data)
 
