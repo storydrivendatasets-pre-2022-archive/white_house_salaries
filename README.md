@@ -2,9 +2,13 @@
 
 This repo contains the code and data for compiling White House salaries from 2012 through 2019.
 
-The wrangled data can be found at: [data/wrangled/white_house_salaries.csv](data/wrangled/white_house_salaries.csv). 
+The wrangled data is published on this repo in several formats:
 
-You can also preview the [data interactively in this Google Sheets copy](https://docs.google.com/spreadsheets/d/1dVjbdr7PzsmJ36WemlXWyZ2h-xuO9d0S7BFPzdIEvYI/edit#gid=0)
+- CSV [data/wrangled/white_house_salaries.csv](data/wrangled/white_house_salaries.csv). 
+- SQLite3 [data/sqlized/white_house_salaries.sqlite](data/sqlized/white_house_salaries.sqlite)
+- Google Sheets (this is not automatically updated with the repo): https://docs.google.com/spreadsheets/d/1dVjbdr7PzsmJ36WemlXWyZ2h-xuO9d0S7BFPzdIEvYI/edit#gid=0
+
+
 
 > ## DISCLAIMER
 > 
@@ -45,14 +49,34 @@ For safekeeping the original files are kept in [data/stashed/originals](data/sta
 
 ## Scripts and code
 
-All the code (mostly Python 3.x scripts) used to organize and wrangle the data can be found in the [whsal/](whsal/) subdirectory:
+All the code (mostly Python 3.x scripts) used to organize and wrangle the data can be found in the [whsa/](whsa/) subdirectory:
 
-- [whsal/stash](whsal/stash) contains the **stash phase**: Fetching and storing the data, and doing the steps needed to get it from zip->csv and pdf->csv. Very little transformation if any
+- [whsa/stash](whsa/stash) contains the **stash phase**: Fetching and storing the data, and doing the steps needed to get it from zip->csv and pdf->csv. Very little transformation if any
 
 TKTODO: explain the other files
 
 
-## About PDFs and CSVs
+# Developing fun 
+
+To clone this repo and change things:
+
+```sh
+$ git clone https://github.com/storydrivendatasets/white_house_salaries.git
+$ cd white_house_salaries
+$ pip install -e .
+```
+
+Read the [Makefile](Makefile) to see some sparse documentation on how the data pipeline works. 
+
+To rebuild the sqlite database from scratch:
+
+```sh
+$ make clean sqlize
+```
+
+
+
+# About PDFs and CSVs
 
 The Trump White House has chosen to publish its salaries list as PDF – you can see this in the 2017.pdf, 2018.pdf, and 2019.pdf files in [data/stashed/originals](data/stashed/originals). Converting the PDF documents into usable CSV data was by far the hardest and time-consuming part of this mini-project.
 
@@ -62,7 +86,7 @@ I then tried [tabula](https://github.com/tabulapdf/tabula-java), which is a soli
 
 I ended up using `pdftotext -layout`, a hacky trick [I used back in the Dollars for Docs days](https://www.propublica.org/nerds/turning-pdfs-to-text-doc-dollars-guide). Surprisingly, it worked very well, and seems to have correctly parsed all but ~15 of ~3500 rows. 
 
-In [stashed/handcleaned](stashed/handcleaned) are the hand-cleaned text files for the pdf files for years 2017 through 2019. This handcleaned version of the data is what the rest of the data-processing pipeline uses, e.g. [whsal/stash/pdftotext_to_csv.py](whsal/stash/pdftotext_to_csv.py). 
+In [stashed/handcleaned](stashed/handcleaned) are the hand-cleaned text files for the pdf files for years 2017 through 2019. This handcleaned version of the data is what the rest of the data-processing pipeline uses, e.g. [whsa/stash/pdftotext_to_csv.py](whsa/stash/pdftotext_to_csv.py). 
 
 I kept a log of the manual handcleaned changes, in YAML format: [data/stashed/pdftotext_handclean_log.yaml](data/stashed/pdftotext_handclean_log.yaml)
 

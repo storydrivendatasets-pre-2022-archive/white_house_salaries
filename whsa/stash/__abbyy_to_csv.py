@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-"""DEPRECATED SINCE WE DONT USE ABBYY ANYMORE"""
+"""DEPRECATED SINCE WE DONT USE ABBYY ANYMORE BECAUSE IT DONT DO PDF-2-EXCEL
+SO GOOD..."""
 
 import csv
 from openpyxl import load_workbook

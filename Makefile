@@ -25,20 +25,29 @@ help:
 
 
 clean:
-	rm -rf data/stashed/processed data/collated data/wrangled
+	rm -rf data/stashed/processed data/collated data/wrangled data/sqlized
 
+
+sqlize: data/sqlized/white_house_salaries.sqlite
+
+data/sqlized/white_house_salaries.sqlite: wrangle
+	mkdir -p data/sqlized
+	sqlite3 $@ < whsa/sqlize.sql
+
+	@echo -----------
+	@echo $@
 
 ## wrangled data
 wrangle: data/wrangled/white_house_salaries.csv
 
 data/wrangled/white_house_salaries.csv: collate
-	./whsal/wrangle.py
+	./whsa/wrangle.py
 
 #### collated data
 collate: data/collated/white_house_salaries.csv
 
 data/collated/white_house_salaries.csv: process
-	./whsal/collate.py
+	./whsa/collate.py
 
 
 #### processed files
@@ -52,7 +61,7 @@ $(PROCESSED_STASHES): $(ORG_STASHES)
 	cp data/stashed/originals/2012.csv data/stashed/processed/2012.csv
 
 	# handle 2013-2016
-	./whsal/stash/zip_to_csv.py
+	./whsa/stash/zip_to_csv.py
 
 	# handle 2017-2019
-	./whsal/stash/pdftotext_to_csv.py
+	./whsa/stash/pdftotext_to_csv.py
