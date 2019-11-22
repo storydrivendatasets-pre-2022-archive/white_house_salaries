@@ -6,13 +6,20 @@ The wrangled data can be found at: [data/wrangled/white_house_salaries.csv](data
 
 You can also preview the [data interactively in this Google Sheets copy](https://docs.google.com/spreadsheets/d/1dVjbdr7PzsmJ36WemlXWyZ2h-xuO9d0S7BFPzdIEvYI/edit#gid=0)
 
+> ## DISCLAIMER
+> 
+> This data has not been bulletproofed or verified beyond the work of extracting and collating from the original files, a process which is definitely not immune to human error from myself. 
+> 
+> Use/analyze/publish it at your own risk.
+
+
 
 Besides compiling the multiyear dataset into a single file, the wrangled data has a few extra convenience fields:
 
 - `president` to make it easier to pivot by administration
 - the `name` field is parsed into `last_name`, `first_name`, `middle_name`, and `suffix`
 
-A pivot summary of the data so far:
+A pivot summary of the data so far (not adjusted for inflation):
 
 | Row Labels  |  employees   | Average salary | Total salaries|
 | ----------- | ------------ | ---------------| ------------- |
@@ -42,7 +49,7 @@ All the code (mostly Python 3.x scripts) used to organize and wrangle the data c
 
 - [whsal/stash](whsal/stash) contains the **stash phase**: Fetching and storing the data, and doing the steps needed to get it from zip->csv and pdf->csv. Very little transformation if any
 
-
+TKTODO: explain the other files
 
 
 ## About PDFs and CSVs
@@ -57,3 +64,27 @@ I ended up using `pdftotext -layout`, a hacky trick [I used back in the Dollars 
 
 In [stashed/handcleaned](stashed/handcleaned) are the hand-cleaned text files for the pdf files for years 2017 through 2019. This handcleaned version of the data is what the rest of the data-processing pipeline uses, e.g. [whsal/stash/pdftotext_to_csv.py](whsal/stash/pdftotext_to_csv.py). Though I do keep the straight-from-pdftotext versions for comparison and double-checking: [data/originals/pdftotext](data/originals/pdftotext)
 
+
+
+## Other readings
+
+
+[Forbes: Trump's Lean White House 2018 Payroll On-Track To Save Taxpayers $22 Million](https://www.forbes.com/sites/adamandrzejewski/2018/06/29/trumps-lean-white-house-2018-payroll-on-track-to-save-taxpayers-22-million/#1245d5094e4f)
+
+This article, while authored by someone from OpenTheBooks.com who has a curious interpretation of things, does have the same numbers that I have:
+
+- 2017: 377 employees, $35.7M total payroll, $89K median salary
+- 2018: 374 employees, $35.2M total payroll, $84.4K median salary
+
+They also have this chart:
+
+<img src="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fadamandrzejewski%2Ffiles%2F2018%2F06%2FForbes_TrumpVSTrump_payroll.jpg" alt="">
+
+And of course, the Forbes-contributor-LOL-quality analysis:
+
+> The rest of the Trump family is also leading by example by foregoing their salaries. First Daughter and Presidential Advisor Ivanka Trump and Son-in-Law Senior Advisor Jared Kushner both refused a salary.
+
+> Although the White House personnel budget is an infinitesimal part of the $3.9 trillion federal budget, it is an important forecasting indicator showing Trump’s deep commitment to cut the size, scope and power of the federal government and reign in waste.
+
+
+Here's a 2019 Followup: [Trump's Leaner White House 2019 Payroll Has Already Saved Taxpayers $20 Million](https://www.forbes.com/sites/adamandrzejewski/2019/06/28/trumps-leaner-white-house-2019-payroll-has-already-saved-taxpayers-20-million/)
