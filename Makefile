@@ -25,18 +25,20 @@ help:
 
 
 clean:
-	rm -rf data/stashed/processed
+	rm -rf data/stashed/processed data/collated data/wrangled
 
 
 ## wrangled data
 wrangle: data/wrangled/white_house_salaries.csv
 
 data/wrangled/white_house_salaries.csv: collate
+	./whsal/wrangle.py
 
 #### collated data
 collate: data/collated/white_house_salaries.csv
 
 data/collated/white_house_salaries.csv: process
+	./whsal/collate.py
 
 
 #### processed files
