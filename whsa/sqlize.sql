@@ -29,6 +29,9 @@ CREATE TABLE employee (
 
 DELETE FROM employee where rowid = 1 AND salary = 'salary';
 
+CREATE INDEX employee_idx_full_name
+    ON employee(full_name COLLATE NOCASE);
+
 
 CREATE INDEX employee_idx_last_first_name
     ON employee(last_name COLLATE NOCASE, first_name COLLATE NOCASE);
