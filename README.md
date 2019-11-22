@@ -1,22 +1,8 @@
-# pydataproject-template
-
-**Dan's template for Python-based data-wrangling projects**
-
-To use:
-
-```sh
-$ git clone https://github.com/dannguyen/pydataproject-template.git
-$ cd pydataproject-template
-$ pip install -e .
-$ python pydataproj  # prints hello world
-```
-
-## Why? 
-
-Because I always forget how to do this stuff, when starting new projects... :(
+# White House Salaries
 
 
-## Resources
 
-- This [great answer to the question, *Importing modules from parent folder*](https://stackoverflow.com/a/50194143/160863)
+## Sources
 
+- [2019-07-01](https://www.whitehouse.gov/wp-content/uploads/2019/06/July-1-2019-Report-FINAL.pdf)
+- 

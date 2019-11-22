@@ -1,6 +1,6 @@
 import pytest
-from pydataproj.utils import foo
-from pydataproj import __version__
+from pysrc.utils import foo
+from pysrc import __version__
 
 def test_foo():
     assert foo() == 'foo'
