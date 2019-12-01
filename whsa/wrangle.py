@@ -11,9 +11,7 @@ gather files from data/collected/processed.csv
 """
 import csv
 from pathlib import Path
-import re
-
-
+from whsa.utils import parse_name
 
 
 SRC_PATH = Path('data', 'fused', 'white_house_salaries.csv')
@@ -32,42 +30,25 @@ HEADERS = ('year', 'president' ,'last_name', 'first_name',
 SHARED_HEADERS = ('year', 'full_name', 'status', 'salary', 'pay_basis',
                   'position_title', 'white_house_review')
 
-NAME_RX = r'(?P<last_name>.+?), (?:(?P<suffix>[^,]+),)? *(?P<first_name>.+?) *(?P<middle_name>[A-Z]\.)?$'
 
-
-def parse_name(name):
-    """
-    name is a string
-
-    returns dict: {'last_name': 'x', 'first_name': , 'middle_name', 'suffix'}
-
-    Examples:
-        Trump, Ivanka M.
-        Hsu, Irene
-        Johnston, Jr., Robert O.
-    """
-    mx = re.match(NAME_RX, name)
-    if mx:
-        return mx.groupdict()
-    else:
-        # import code; code.interact(local=locals())
-        return {}
+def get_president(year):
+    yr = str(year)
+    return next(pres for yrs, pres in PRES_TERMS if yr in yrs)
 
 def process_record(row):
     """
     row is a dict
 
-    returns a dict
+    Returns: a dict
     """
-    d = {}
-    for h in SHARED_HEADERS:
-        d[h] = row[h]
-
-    nameparts = parse_name(row['full_name'])
-    d.update(nameparts)
-    d['president'] = next(pres for yrs, pres in PRES_TERMS if d['year'] in yrs)
+    d = {h: row[h] for h in SHARED_HEADERS}
+    d['president'] = get_president(d['year'])
+    d.update(parse_name(row['full_name']))
 
     return d
+
+
+
 
 def main():
     with open(SRC_PATH) as f:

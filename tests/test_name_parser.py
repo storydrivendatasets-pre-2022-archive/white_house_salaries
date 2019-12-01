@@ -1,5 +1,5 @@
 import pytest
-from whsa.wrangle import parse_name
+from whsa.utils import parse_name
 
 
 def test_simple_name():

@@ -12,11 +12,11 @@ gather files from data/collected/processed.csv
 import csv
 from pathlib import Path
 import re
+from whsa.utils import cleanspaces
 
 
 
-
-SRC_DIR = Path('data', 'collected', 'processed')
+SRC_DIR = Path('data', 'converted')
 DEST_PATH = Path('data', 'fused', 'white_house_salaries.csv')
 
 SALARY_COL_IDX = 2
@@ -26,9 +26,10 @@ HEADERS = ('year', 'full_name', 'status', 'salary',
            'white_house_review')
 
 
+def cleansalary(txt):
+    val = cleanspaces(re.sub(r'\$|,', '', txt))
+    return val
 
-def cleanspace(txt):
-    return re.sub(r'\s{2,}', ' ', txt).strip()
 
 def process_file(srcpath):
     """
@@ -48,9 +49,7 @@ def process_file(srcpath):
     for row in records:
         d = [year]
         for idx, col in enumerate(row):
-            val = cleanspace(col)
-            if idx == SALARY_COL_IDX:
-                val = re.sub(r'\$|,', '', val)
+            val = cleansalary(col) if idx == SALARY_COL_IDX else cleanspaces(col)
             d.append(val)
         yield d
 
