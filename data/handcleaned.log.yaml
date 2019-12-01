@@ -3,9 +3,9 @@ About this log:
 
 The salary pdfs for 2017, 2018, and 2019, ultimately required hand-cleaning.
 
-The originals are in: data/stashed/originals/pdftotext
+The originals are in: data/converted/pdftotext
 
-The hand-cleaned are in: data/stashed/handcleaned
+The hand-cleaned are in: data/converted/handcleaned
 
 I searched through each respective pdftotext output using this regex:
 
@@ -31,8 +31,9 @@ record_line number as in the original pdftotext output.
 
 """
 
-2017:
-
+data/collected/pdftotext/2017.pdf.txt:
+  output: data/collected/handcleaned/2017.txt
+  changed_records:
     - record_line: 225
       employee: Eisenberg, John A.
       cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT AND DEPUTY COUNSEL TO THE PRESIDENT FOR NATIONAL SECURITY AFFAIRS AND LEGAL ADVISOR TO THE NATIONAL SECURITY COUNCIL
@@ -62,8 +63,9 @@ record_line number as in the original pdftotext output.
           428: blanked
           430: blanked
 
-2018:
-
+data/collected/pdftotext/2018.pdf.txt:
+  output: data/collected/handcleaned/2018.txt
+  changed_records:
     - record_line: 218
       employee: Eissenstat, Everett H.
       cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT FOR INTERNATIONAL ECONOMIC AFFAIRS AND DEPUTY DIRECTOR OF THE NATIONAL ECONOMIC COUNCIL
@@ -78,8 +80,9 @@ record_line number as in the original pdftotext output.
           419: blanked
           421: blanked
 
-2019:
-
+data/collected/pdftotext/2019.pdf.txt:
+  output: data/collected/handcleaned/2019.txt
+  changed_records:
     - record_line: 81
       employee: Block, Monica J.
       cleanjob: DEPUTY ASSISTANT TO THE PRESIDENT AND DIRECTOR OF WHITE HOUSE MANAGEMENT AND ADMINISTRATION AND ACTING DIRECTOR OF THE OFFICE OF ADMINISTRATION
@@ -132,13 +135,3 @@ record_line number as in the original pdftotext output.
       affected_lines:
           952: blanked
           954: blanked
-
-"""
-    - record_line: 999
-      employee: ABC
-      cleanjob: DEF
-      affected_lines:
-          999: blanked
-          999: blanked
-
-"""

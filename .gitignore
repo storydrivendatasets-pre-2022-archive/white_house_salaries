@@ -1,7 +1,7 @@
 # Dan Nguyen's custom bashfoo
 *.egg-info
 
-# names for data stash folders that shouldn't be committed
+# names for data collect folders that shouldn't be committed
 _drafts/
 ZEADME.md
 junk/

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 """
-collate.py
+fuse.py
 
-gather files from data/stashed/processed.csv
+gather files from data/collected/processed.csv
 
 - Remove ,$ from salary column
 - collapse and strip whitespace
-- unite them as data/collated/white_house_salaries.csv
+- unite them as data/fused/white_house_salaries.csv
 """
 import csv
 from pathlib import Path
@@ -16,8 +16,8 @@ import re
 
 
 
-SRC_DIR = Path('data', 'stashed', 'processed')
-DEST_PATH = Path('data', 'collated', 'white_house_salaries.csv')
+SRC_DIR = Path('data', 'collected', 'processed')
+DEST_PATH = Path('data', 'fused', 'white_house_salaries.csv')
 
 SALARY_COL_IDX = 2
 # note: a couple of Obama year files have a 6th column called, "White House Review"

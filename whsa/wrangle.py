@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 """
-collate.py
+fuse.py
 
-gather files from data/stashed/processed.csv
+gather files from data/collected/processed.csv
 
 - Remove ,$ from salary column
 - collapse and strip whitespace
-- unite them as data/collated/white_house_salaries.csv
+- unite them as data/fused/white_house_salaries.csv
 """
 import csv
 from pathlib import Path
@@ -16,7 +16,7 @@ import re
 
 
 
-SRC_PATH = Path('data', 'collated', 'white_house_salaries.csv')
+SRC_PATH = Path('data', 'fused', 'white_house_salaries.csv')
 DEST_PATH = Path('data', 'wrangled', 'white_house_salaries.csv')
 
 SALARY_COL_IDX = 2
@@ -28,7 +28,7 @@ PRES_TERMS = (
 HEADERS = ('year', 'president' ,'last_name', 'first_name',
             'middle_name', 'suffix', 'full_name',
             'status', 'salary', 'pay_basis', 'position_title', 'white_house_review')
-# shared between collated and wrangled
+# shared between fused and wrangled
 SHARED_HEADERS = ('year', 'full_name', 'status', 'salary', 'pay_basis',
                   'position_title', 'white_house_review')
 

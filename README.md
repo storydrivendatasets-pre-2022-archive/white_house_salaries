@@ -5,7 +5,7 @@ This repo contains the code and data for compiling White House salaries from 201
 The wrangled data is published on this repo in several formats:
 
 - CSV [data/wrangled/white_house_salaries.csv](data/wrangled/white_house_salaries.csv). 
-- SQLite3 [data/sqlized/white_house_salaries.sqlite](data/sqlized/white_house_salaries.sqlite)
+- SQLite3 [data/white_house_salaries.sqlite](data/sqlized/white_house_salaries.sqlite)
 - Google Sheets (this is not automatically updated with the repo): https://docs.google.com/spreadsheets/d/1dVjbdr7PzsmJ36WemlXWyZ2h-xuO9d0S7BFPzdIEvYI/edit#gid=0
 
 
@@ -42,16 +42,23 @@ A pivot summary of the data so far (not adjusted for inflation):
 # Inventory
 
 
-The list of original data URLs and their corresponding years can be found in [data/stashed/filelist.csv](data/stashed/filelist.csv).
+The list of original data URLs and their corresponding years can be found in [data_inventory.csv](data_inventory.csv).
 
-For safekeeping the original files are kept in [data/stashed/originals](data/stashed/originals).
+For safekeeping the original files are kept in [data/collected](data/collected).
 
 
 ## Scripts and code
 
 All the code (mostly Python 3.x scripts) used to organize and wrangle the data can be found in the [whsa/](whsa/) subdirectory:
 
-- [whsa/stash](whsa/stash) contains the **stash phase**: Fetching and storing the data, and doing the steps needed to get it from zip->csv and pdf->csv. Very little transformation if any
+- [whsa/collect_data.py](whsa/collect_data.py): the **collect** phase, simply fetching the data files from their original sources and saving them exactly as is, whether they come as CSV, PDF, or ZIP.
+
+- [whsa/convert](whsa/convert): the **convert** phase, which is basically the steps needed to get the collected data into CSV format. Very few changes to the actual data are made in this phase; the point is to handoff CSV files so that the subsequent phases don't have to worry about it.
+
+- [whsa/fuse.py](whsa/fuse.py): the **fuse** phase, in which we attempt to unify all the data in a single CSV file, with common headers. Again, few changes to the actual data are made, though we do alter the data structure and scheme (e.g. standardizing header names)
+
+- [whsa/wrangle.py](whsa/wrangle.py): where the real data transformation is done
+
 
 TKTODO: explain the other files
 
@@ -71,24 +78,24 @@ Read the [Makefile](Makefile) to see some sparse documentation on how the data p
 To rebuild the sqlite database from scratch:
 
 ```sh
-$ make clean sqlize
+$ make ALL
 ```
 
 
 
 # About PDFs and CSVs
 
-The Trump White House has chosen to publish its salaries list as PDF – you can see this in the 2017.pdf, 2018.pdf, and 2019.pdf files in [data/stashed/originals](data/stashed/originals). Converting the PDF documents into usable CSV data was by far the hardest and time-consuming part of this mini-project.
+The Trump White House has chosen to publish its salaries list as PDF – you can see this in the 2017.pdf, 2018.pdf, and 2019.pdf files in [data/collected/originals](data/collected/originals). Converting the PDF documents into usable CSV data was by far the hardest and time-consuming part of this mini-project.
 
-In [data/stashed/originals/abbyy](data/stashed/originals/abbyy), you can see my attempts to use ABBYY FineReader, which in the past has been my go-to tool (maybe the only commercial data tool I pay for). It did quite badly. Not only (understandably) making mistakes when trying to figure out the tabular layout, but also producing OCR-quality (i.e. **bad**) text, despite the PDFs being native text documents.
+In [data/collected/originals/abbyy](data/collected/originals/abbyy), you can see my attempts to use ABBYY FineReader, which in the past has been my go-to tool (maybe the only commercial data tool I pay for). It did quite badly. Not only (understandably) making mistakes when trying to figure out the tabular layout, but also producing OCR-quality (i.e. **bad**) text, despite the PDFs being native text documents.
 
 I then tried [tabula](https://github.com/tabulapdf/tabula-java), which is a solid tool but I haven't used much in the past because of ABBYY. It did a good job as expected in getting the text out, but when skimming the results, I saw more table-structure-mistakes than I wanted to deal with. 
 
 I ended up using `pdftotext -layout`, a hacky trick [I used back in the Dollars for Docs days](https://www.propublica.org/nerds/turning-pdfs-to-text-doc-dollars-guide). Surprisingly, it worked very well, and seems to have correctly parsed all but ~15 of ~3500 rows. 
 
-In [stashed/handcleaned](stashed/handcleaned) are the hand-cleaned text files for the pdf files for years 2017 through 2019. This handcleaned version of the data is what the rest of the data-processing pipeline uses, e.g. [whsa/stash/pdftotext_to_csv.py](whsa/stash/pdftotext_to_csv.py). 
+In [collected/handcleaned](collected/handcleaned) are the hand-cleaned text files for the pdf files for years 2017 through 2019. This handcleaned version of the data is what the rest of the data-processing pipeline uses, e.g. [whsa/collect/pdftotext_to_csv.py](whsa/collect/pdftotext_to_csv.py). 
 
-I kept a log of the manual handcleaned changes, in YAML format: [data/stashed/pdftotext_handclean_log.yaml](data/stashed/pdftotext_handclean_log.yaml)
+I kept a log of the manual handcleaned changes, in YAML format: [data/handcleaned.log.yaml](data/handcleaned.log.yaml)
 
 
 In conclusion: f–-k pdfs
