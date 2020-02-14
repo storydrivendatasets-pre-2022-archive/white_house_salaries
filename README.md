@@ -5,7 +5,7 @@ This repo contains the code and data for compiling White House salaries from 201
 The wrangled data is published on this repo in several formats:
 
 - CSV [data/wrangled/white_house_salaries.csv](data/wrangled/white_house_salaries.csv). 
-- SQLite3 [data/white_house_salaries.sqlite](data/sqlized/white_house_salaries.sqlite)
+- SQLite3 [data/white_house_salaries.sqlite](data/white_house_salaries.sqlite)
 - Google Sheets (this is not automatically updated with the repo): https://docs.google.com/spreadsheets/d/1dVjbdr7PzsmJ36WemlXWyZ2h-xuO9d0S7BFPzdIEvYI/edit#gid=0
 
 
@@ -38,6 +38,58 @@ A pivot summary of the data so far (not adjusted for inflation):
 | Total       |        3,499 |       87,382   |   305,749,622 |
 
 
+# Example usecases and queries
+
+
+### Salary changes and turnover, from 2017 to 2019
+
+Given a multi-year list of salaries and job titles, it's always interesting to look up how salaries changed, i.e. who got a raise from year X to year Y. And relatedly, who left employment from year X to year Y. We can do this in one **SQLite** query; first, a screenshot of what the results look like for the years 2017 and 2019 (the `NULL` values in `salary_change` indicate 2017 employee *names* that don't appear in the 2019 data). First, a screenshot preview of the results:
+
+<img src="assets/images/sample-2017-2019-turnover.png" alt="sample-2017-2019-turnover.png">
+
+To do this:
+
+- Download and install [DB Browser for SQLite](https://sqlitebrowser.org/) (if you don't already have a SQLite GUI)
+- Download from this repo the [data/white_house_salaries.sqlite](https://github.com/storydrivendatasets/white_house_salaries/raw/master/data/white_house_salaries.sqlite) file
+- Open `white_house_salaries.sqlite` in DB Browser
+- Then run the following query (change out `2017` and `2019` for whatever years you prefer):
+
+
+```sql
+WITH tx AS (
+        SELECT 
+            full_name
+            , position_title
+            , salary
+        FROM employee
+        WHERE year = '2017'
+    ), ty AS (
+        SELECT 
+            full_name
+            , position_title
+            , salary
+        FROM employee
+        WHERE year = '2019'
+)
+
+SELECT
+    tx.full_name AS full_name
+    , ty.salary - tx.salary AS salary_change
+    , tx.salary AS "x_salary"
+    , ty.salary AS "y_salary"
+    , tx.position_title AS "x_job"
+    , ty.position_title AS "y_job"
+FROM tx
+LEFT JOIN ty ON
+    tx.full_name = ty.full_name
+ORDER BY
+    "salary_change" DESC
+    , tx.salary DESC
+    , full_name ASC
+;
+```
+
+
 
 # Inventory
 
@@ -59,8 +111,9 @@ All the code (mostly Python 3.x scripts) used to organize and wrangle the data c
 
 - [whsa/wrangle.py](whsa/wrangle.py): where the real data transformation is done
 
-
 TKTODO: explain the other files
+
+
 
 
 # Developing fun 
