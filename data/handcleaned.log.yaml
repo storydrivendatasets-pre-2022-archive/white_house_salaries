@@ -135,3 +135,16 @@ data/collected/pdftotext/2019.pdf.txt:
       affected_lines:
           952: blanked
           954: blanked
+
+
+
+data/collected/pdftotext/2020.pdf.txt:
+  output: data/collected/handcleaned/2020.txt [IN PROGRESS; 2020-10-22]
+  changed_records:
+    - record_line: 0000
+      employee: SURNAME_FIRSTNAME
+      cleanjob: CLEAN_JOB_TITLE
+      affected_lines:
+          11X: blanked
+          22X: blanked
+
